@@ -19,7 +19,10 @@ h6,
 p,
 blockquote,
 pre,
-a,
+a {
+	text-decoration: none;
+}
+
 abbr,
 acronym,
 address,
@@ -149,7 +152,7 @@ header {
 }
 
 section {
-	margin: 50px 0
+	margin: 120px 0
 }
 
 h1 {
@@ -187,8 +190,16 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+nav li a {
+	color: #000000;
+}
+
+li a:hover {
 	color: #B1663C;
+}
+
+nav li img {
+	height: 22px;
 }
 
 #introduction {
@@ -230,6 +241,8 @@ li:hover {
 	align-items: center;
 	gap: 10px;
 	flex-wrap: wrap;
+	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .filters button {
@@ -237,14 +250,13 @@ li:hover {
 	color: #1D6154;
 	background-color: white;
 	height: 38px;
-	margin-top: 30px;
-	margin-bottom: 35px;
+	padding: 0px 15px;
 	border-radius: 60px;
 	border: 1px solid #1D6154;
 	cursor: pointer;
 }
 
-.filters button.active {
+.filters button.selected {
 	background-color: #1D6154;
 	color: white;
 }
@@ -269,7 +281,6 @@ li:hover {
 
 #contact>* {
 	text-align: center;
-
 }
 
 #contact h2 {
@@ -308,6 +319,12 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+}
+
+.forgot-password {
+	color: #3D3D3D;
+	text-decoration-line: underline;
+	text-align: center;
 }
 
 footer nav ul {
