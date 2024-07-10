@@ -7,6 +7,7 @@ async function getWorks() {
 
 // Affichage des éléments dans la galerie
 async function displayWorks(works) {
+    console.log(works);
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = ""; // Vide la galerie avant d'ajouter les nouveaux éléments et évite les duplications
 
@@ -35,7 +36,7 @@ async function displayCategoriesBtn() {
     const categories = await getCategories();
     const filters = document.querySelector(".filters");
 
-    categories.unshift({ id: 0, name: "Tous" });
+    categories.unshift({ id: 0, name: "Tous" }); // Ajout de l'objet "Tous" au début des catégories et retourne la nouvelle longueur du tableau
 
     categories.forEach((category) => {
         const btn = document.createElement("button");
@@ -54,10 +55,10 @@ async function displayCategoriesBtn() {
 // Fonction pour filtrer les travaux par catégorie
 async function filterWorksByCategory(categoryId) {
     const worksList = await getWorks();
-    if (Number(categoryId) === 0) {
+    if (Number(categoryId) === 0) { // Conversion de categoryId en nombre
         displayWorks(worksList); // Affiche tous les travaux
     } else {
-        const filteredWorks = worksList.filter(work => work.categoryId == categoryId);
+        const filteredWorks = worksList.filter(work => work.categoryId == categoryId); // Filtre les travaux
         displayWorks(filteredWorks); // Affiche les travaux filtrés
     }
 }
@@ -79,8 +80,40 @@ function addFilterEventListeners() {
     });
 }
 
+// Fonction pour gérer l'affichage en fonction de l'état de l'utilisateur
+async function displayUserState() {
+    const authToken = localStorage.getItem("authToken");
+    const filters = document.querySelector(".filters");
+    const loginLink = document.querySelector("#login-link");
+    const logoutLink = document.querySelector("#logout-link");
+    const editionMode = document.querySelector("#edition-mode");
+    const modifyBtn = document.querySelector("#modify-btn");
+
+    if (authToken !== null) {
+        // Utilisateur connecté
+        filters.style.display = "none";
+        loginLink.style.display = "none";
+        logoutLink.style.display = "block";
+        editionMode.style.display = "flex";
+        modifyBtn.style.display = "inline-flex";
+        logoutLink.addEventListener("click", () => {
+            // Déconnexion de l'utilisateur
+            localStorage.clear();
+            displayUserState(); // Met à jour l'affichage après la déconnexion
+        });
+    } else {
+        // Utilisateur non connecté
+        filters.style.display = "flex";
+        loginLink.style.display = "block";
+        logoutLink.style.display = "none";
+        editionMode.style.display = "none";
+        modifyBtn.style.display = "none";
+    }
+}
+
 // Exécution du script au chargement du DOM
 document.addEventListener("DOMContentLoaded", async function () {
     await displayWorks(await getWorks());
     await displayCategoriesBtn();
+    await displayUserState();
 });

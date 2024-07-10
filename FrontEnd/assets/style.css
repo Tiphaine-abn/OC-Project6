@@ -21,6 +21,7 @@ blockquote,
 pre,
 a {
 	text-decoration: none;
+	color: inherit;
 }
 
 abbr,
@@ -148,7 +149,8 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 100px 0;
+	align-items: baseline;
 }
 
 section {
@@ -182,7 +184,6 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 
 nav li {
@@ -230,7 +231,8 @@ nav li img {
 }
 
 #portfolio h2 {
-	text-align: center;
+	display: flex;
+	justify-content: center;
 	margin-bottom: 1em;
 }
 
@@ -331,4 +333,125 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+.editionMode {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background-color: #000;
+	color: #fff;
+	height: 59px;
+	width: 100%;
+	font-size: 16px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+.editionMode i {
+	margin-right: 10px;
+}
+
+.modifyBtn {
+	border: none;
+	background: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	width: 84px;
+	font-family: 'Work Sans';
+	font-size: 16px;
+	color: #000000;
+}
+
+.modifyBtn i {
+	margin-left: 25px;
+	margin-right: 8px;
+	height: 15px;
+}
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.30);
+}
+
+.modal-wrapper {
+	overflow: auto;
+	text-align: center;
+	width: 630px;
+	max-width: calc(100vh - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 20px;
+	background-color: white;
+	position: relative;
+}
+
+.js-modal-close {
+	border: none;
+	background: none;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+}
+
+.photo-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+}
+
+.photo-card {
+	position: relative;
+	width: 76px;
+	height: 102px;
+}
+
+.photo-card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.photo-card .delete-icon {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.modal-line {
+	width: 420px;
+	height: 1px;
+	background-color: #B3B3B3;
+	margin: 0 auto 1em auto;
+}
+
+.modalBtn {
+	font-family: 'Syne';
+	font-weight: 700;
+	width: 237px;
+	height: 36px;
+	color: white;
+	background-color: #1D6154;
+	border: 1px solid #1D6154;
+	margin: 2em auto;
+	border-radius: 60px;
+	cursor: pointer;
 }
