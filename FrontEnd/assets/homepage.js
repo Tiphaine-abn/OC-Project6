@@ -1,27 +1,38 @@
-// Récupération des travaux depuis l'API
+let works = null; // Stocke les travaux récupérés pour éviter des appels répétés à l'API
+
+// Récupération des travaux depuis l'API si tableau vide
 async function getWorks() {
+    if (works === null) {
+        await refreshWorks();
+    }
+    return works;
+}
+
+// Récupération des travaux depuis l'API (aussi utilisé pour charger les nouveaux travaux)
+async function refreshWorks() {
     const response = await fetch("http://localhost:5678/api/works");
-    const works = await response.json();
+    works = await response.json();
     return works;
 }
 
 // Affichage des éléments dans la galerie
-async function displayWorks(works) {
-    console.log(works);
+async function displayWorks(listWorks) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = ""; // Vide la galerie avant d'ajouter les nouveaux éléments et évite les duplications
 
-    works.forEach((work) => {
-        const figure = document.createElement("figure");
-        const img = document.createElement("img");
-        const figcaption = document.createElement("figcaption");
-        img.src = work.imageUrl;
-        img.alt = work.title;
-        figcaption.textContent = work.title;
-        figure.appendChild(img);
-        figure.appendChild(figcaption);
-        gallery.appendChild(figure);
-    });
+    if (listWorks !== null) {
+        listWorks.forEach((work) => {
+            const figure = document.createElement("figure");
+            const img = document.createElement("img");
+            const figcaption = document.createElement("figcaption");
+            img.src = work.imageUrl;
+            img.alt = work.title;
+            figcaption.textContent = work.title;
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            gallery.appendChild(figure);
+        });
+    }
 }
 
 // Récupération des catégories depuis l'API
@@ -54,11 +65,11 @@ async function displayCategoriesBtn() {
 
 // Fonction pour filtrer les travaux par catégorie
 async function filterWorksByCategory(categoryId) {
-    const worksList = await getWorks();
+    listWorks = await getWorks();
     if (Number(categoryId) === 0) { // Conversion de categoryId en nombre
-        displayWorks(worksList); // Affiche tous les travaux
+        displayWorks(listWorks); // Affiche tous les travaux
     } else {
-        const filteredWorks = worksList.filter(work => work.categoryId == categoryId); // Filtre les travaux
+        const filteredWorks = listWorks.filter(work => work.categoryId == categoryId); // Filtre les travaux
         displayWorks(filteredWorks); // Affiche les travaux filtrés
     }
 }
@@ -82,14 +93,14 @@ function addFilterEventListeners() {
 
 // Fonction pour gérer l'affichage en fonction de l'état de l'utilisateur
 async function displayUserState() {
-    const authToken = localStorage.getItem("authToken");
+    const userData = localStorage.getItem("userdata");
     const filters = document.querySelector(".filters");
     const loginLink = document.querySelector("#login-link");
     const logoutLink = document.querySelector("#logout-link");
     const editionMode = document.querySelector("#edition-mode");
     const modifyBtn = document.querySelector("#modify-btn");
 
-    if (authToken !== null) {
+    if (userData !== null) {
         // Utilisateur connecté
         filters.style.display = "none";
         loginLink.style.display = "none";
