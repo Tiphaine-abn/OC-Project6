@@ -79,7 +79,7 @@ function addFilterEventListeners() {
     const buttons = document.querySelectorAll(".filters .filter-btn");
     buttons.forEach((button) => {
         button.addEventListener("click", (e) => {
-            const buttonId = e.target.id; // récupération de l'id du bouton cliqué
+            const buttonId = e.target.id; // Récupération de l'id du bouton cliqué
             filterWorksByCategory(buttonId);
 
             // Supprime la classe 'selected' de tous les boutons et l'ajoute au bouton cliqué

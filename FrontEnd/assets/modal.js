@@ -1,5 +1,6 @@
 let modal = null
 
+// Fonction pour ajouter des cartes de photo à la galerie de la modale
 function addPhotoCards() {
     const photoContainer = document.getElementById('photo-container');
     photoContainer.innerHTML = "";
@@ -27,7 +28,7 @@ function addPhotoCards() {
     });
 };
 
-// Suppression des projets existants
+// Fonction pour supprimer un projet
 function deleteWork(id) {
     const userData = JSON.parse(localStorage.getItem("userdata"));
     const token = userData ? userData.token : null;
@@ -63,6 +64,7 @@ function deleteWork(id) {
         });
 };
 
+// Fonction pour ouvrir une modale
 const openModal = function (targetHref) {
     const target = document.querySelector(targetHref); // Récupère la cible de la modale à partir de l'attribut 'href' du lien cliqué
     if (modal !== null) {
@@ -78,7 +80,7 @@ const openModal = function (targetHref) {
     target.removeAttribute('aria-hidden');
     target.setAttribute('aria-modal', 'true');
     modal = target;
-    // Ajoute des écouteurs d'événements pour gérer la fermeture de la modale et empêcher la propagation de l'événement
+    // Ecouteurs d'événements pour gérer la fermeture de la modale et empêcher la propagation de l'événement
     modal.addEventListener('click', closeModal);
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
@@ -94,9 +96,10 @@ const openModal = function (targetHref) {
     }
 }
 
+// Fonction pour fermer la modale
 const closeModal = function () {
     if (modal === null) return; // Si aucune modale n'est ouverte, arrête la fonction
-    modal.style.display = "none" // Masque la modale
+    modal.style.display = "none"
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
     // Supprime les écouteurs d'événement
@@ -106,10 +109,12 @@ const closeModal = function () {
     modal = null; // Réinitialise la variable 'modal' à null pour indiquer qu'aucun modal n'est ouvert
 }
 
+// Fonction pour arrêter la propagation des événements
 const stopPropagation = function (e) {
     e.stopPropagation();
 }
 
+// Ajoute des écouteurs d'événements à tous les éléments avec la classe 'js-modal' pour ouvrir les modales
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -117,6 +122,7 @@ document.querySelectorAll('.js-modal').forEach(a => {
     });
 })
 
+// Ferme la modale en appuyant sur la touche 'Échap'
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal();
@@ -132,7 +138,6 @@ const pFile = document.querySelector(".cardInputPhoto p");
 
 inputFile.addEventListener("change", () => {
     const file = inputFile.files[0]; // Récupération de l'input et enregistrement dans file
-    console.log(file);
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
@@ -201,7 +206,6 @@ form.addEventListener("submit", async (e) => {
         if (!response.ok) {
             throw new Error(data.error || 'Erreur lors de l\'ajout du projet');
         }
-
         console.log("Voici le projet ajouté", data);
         await displayWorks(await refreshWorks());
         openModal('#modal');
