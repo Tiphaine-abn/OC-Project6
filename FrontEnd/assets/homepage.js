@@ -101,11 +101,13 @@ async function displayUserState() {
     const modifyBtn = document.querySelector("#modify-btn");
 
     if (userData !== null) {
+        const header = document.querySelector("header");
         // Utilisateur connecté
         filters.style.display = "none";
         loginLink.style.display = "none";
         logoutLink.style.display = "block";
         editionMode.style.display = "flex";
+        header.style.margin = "100px 0px 50px";
         modifyBtn.style.display = "inline-flex";
         logoutLink.addEventListener("click", () => {
             // Déconnexion de l'utilisateur
@@ -118,6 +120,7 @@ async function displayUserState() {
         loginLink.style.display = "block";
         logoutLink.style.display = "none";
         editionMode.style.display = "none";
+        header.style.margin = "0px";
         modifyBtn.style.display = "none";
     }
 }

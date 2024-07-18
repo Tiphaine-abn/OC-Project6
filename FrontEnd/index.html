@@ -19,22 +19,22 @@
 	<div class="editionMode" id="edition-mode" style="display: none;"><i class="fa-regular fa-pen-to-square"></i>Mode
 		édition</div>
 	<!-- Modale Galerie photo -->
-	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelleby="titlemodal" style="display: none">
+	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none">
 		<div class="modal-wrapper js-modal-stop">
 			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<h3>Galerie photo</h3>
+			<h3 id="titlemodal">Galerie photo</h3>
 			<div id="photo-container" class="photo-container"></div>
 			<div class="modal-line"></div>
 			<a class="modalBtn js-modal" href="#modalAddPhoto">Ajouter une photo</a>
 		</div>
 	</aside>
 	<!-- Modale Ajout photo -->
-	<aside id="modalAddPhoto" class="modal" aria-hidden="true" role="dialog" aria-labelleby="titlemodal"
+	<aside id="modalAddPhoto" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal2"
 		style="display: none">
 		<div class="modal-wrapper js-modal-stop">
-			<button class="js-modal-back" href="#modal"><i class="fa-solid fa-arrow-left"></i></button>
+			<a class="js-modal-back" href="#modal"><i class="fa-solid fa-arrow-left"></i></a>
 			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<h3>Ajout photo</h3>
+			<h3 id="titlemodal2">Ajout photo</h3>
 			<div class="cardInputPhoto">
 				<i class="fa-regular fa-image"></i>
 				<label for="file" class="addPhotoBtn">+ Ajouter photo</label>
@@ -43,9 +43,9 @@
 				<p>jpg, png : 4mo max</p>
 			</div>
 			<form class="formContent" href="#modalAddPhoto">
-				<label for="addTitle">Titre</label>
+				<label>Titre</label>
 				<input class="formInput" type="text" name="addTitle">
-				<label for="selectCategory">Catégorie</label>
+				<label>Catégorie</label>
 				<select class="formInput" name="selectCategory">
 				</select>
 				<div class="modal-line"></div>
@@ -85,7 +85,7 @@
 			</article>
 		</section>
 		<section id="portfolio" class="portfolio">
-			<h2>Mes projets<a href="#modal" class="modifyBtn js-modal" id="modify-btn" style="display: none;"><i
+			<h2>Mes projets<a href="#modal" class="modifyBtn js-modal" id="modify-btn"><i
 						class="fa-regular fa-pen-to-square"></i> modifier</a></h2>
 			<div class="filters">
 				<!-- Affichage des filtres -->
@@ -116,8 +116,8 @@
 			</ul>
 		</nav>
 	</footer>
-	<script type="text/javascript" src="./assets/homepage.js"></script>
-	<script type="text/javascript" src="./assets/modal.js"></script>
+	<script src="./assets/homepage.js"></script>
+	<script src="./assets/modal.js"></script>
 </body>
 
 </html>

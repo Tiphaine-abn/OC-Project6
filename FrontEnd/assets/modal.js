@@ -65,25 +65,33 @@ function deleteWork(id) {
 };
 
 // Fonction pour ouvrir une modale
-const openModal = function (targetHref) {
+function openModal(targetHref) {
     const target = document.querySelector(targetHref); // Récupère la cible de la modale à partir de l'attribut 'href' du lien cliqué
+    // Vérifie si une modale est déjà ouverte
     if (modal !== null) {
+        // Ferme la modale actuelle
         modal.style.display = "none";
         modal.removeAttribute('aria-modal');
         modal.setAttribute('aria-hidden', true);
+        // Supprime les écouteurs d'événements
         modal.removeEventListener('click', closeModal);
         modal.querySelector('.js-modal-close').removeEventListener('click', closeModal);
         modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
+        // Réinitialise la variable 'modal'
         modal = null;
     }
+    // Ouverture de la nouvelle modale
     target.style.display = null;
     target.removeAttribute('aria-hidden');
     target.setAttribute('aria-modal', 'true');
     modal = target;
+
     // Ecouteurs d'événements pour gérer la fermeture de la modale et empêcher la propagation de l'événement
     modal.addEventListener('click', closeModal);
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+
+    // Gestion du bouton de retour pour la navigation entre modales
     const backBtn = modal.querySelector('.js-modal-back');
     if (backBtn !== null) {
         backBtn.addEventListener('click', (e) => {
@@ -91,13 +99,14 @@ const openModal = function (targetHref) {
             openModal(e.currentTarget.getAttribute('href'));
         });
     }
+    // Ajoute des cartes de photo si la cible est la galerie photo
     if (targetHref === '#modal') {
         addPhotoCards();
     }
 }
 
 // Fonction pour fermer la modale
-const closeModal = function () {
+function closeModal() {
     if (modal === null) return; // Si aucune modale n'est ouverte, arrête la fonction
     modal.style.display = "none"
     modal.setAttribute('aria-hidden', 'true');
@@ -110,7 +119,7 @@ const closeModal = function () {
 }
 
 // Fonction pour arrêter la propagation des événements
-const stopPropagation = function (e) {
+function stopPropagation(e) {
     e.stopPropagation();
 }
 
