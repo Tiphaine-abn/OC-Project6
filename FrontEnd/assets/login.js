@@ -1,3 +1,46 @@
+// Fonction utilitaire pour créer les éléments du formulaire de connexion
+function createElement(tag, attributes = {}, content = '') {
+    const element = document.createElement(tag);
+    Object.keys(attributes).forEach(attribute => {
+        if (attribute === 'className') {
+            element.className = attributes[attribute];
+        } else if (attribute === 'style') {
+            Object.assign(element.style, attributes[attribute]);
+        } else {
+            element.setAttribute(attribute, attributes[attribute]);
+        }
+    });
+    if (typeof content === 'string') {
+        element.textContent = content;
+    } else if (Array.isArray(content)) {
+        content.forEach(child => element.appendChild(child));
+    } else {
+        element.appendChild(content);
+    }
+    return element;
+}
+
+// Création du formulaire de connexion
+const loginFormElement = createElement('form', { id: 'login-form' }, [
+    createElement('label', { for: 'email' }, 'Email'),
+    createElement('input', { type: 'email', id: 'email', name: 'email', required: true }),
+    createElement('label', { for: 'password' }, 'Mot de passe'),
+    createElement('input', { type: 'password', id: 'password', name: 'password', required: true }),
+    createElement('input', { type: 'submit', value: 'Se connecter' }),
+    createElement('a', { href: '#', className: 'forgot-password' }, 'Mot de passe oublié'),
+    createElement('p', { className: 'error-message' })
+]);
+
+// Création de la section de connexion
+const contactSection = createElement('section', { id: 'contact' }, [
+    createElement('h2', {}, 'Log In'),
+    loginFormElement
+]);
+
+// Ajoute la section de connexion au main
+const mainElement = document.querySelector('main');
+mainElement.appendChild(contactSection);
+
 // Authentification de l'utilisateur
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("#login-form");

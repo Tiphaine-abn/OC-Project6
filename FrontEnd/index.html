@@ -16,45 +16,8 @@
 
 <body>
 	<!-- Mode édition -->
-	<div class="editionMode" id="edition-mode" style="display: none;"><i class="fa-regular fa-pen-to-square"></i>Mode
-		édition</div>
-	<!-- Modale Galerie photo -->
-	<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none">
-		<div class="modal-wrapper js-modal-stop">
-			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<h3 id="titlemodal">Galerie photo</h3>
-			<div id="photo-container" class="photo-container"></div>
-			<div class="modal-line"></div>
-			<a class="modalBtn js-modal" href="#modalAddPhoto">Ajouter une photo</a>
-		</div>
-	</aside>
-	<!-- Modale Ajout photo -->
-	<aside id="modalAddPhoto" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal2"
-		style="display: none">
-		<div class="modal-wrapper js-modal-stop">
-			<a class="js-modal-back" href="#modal"><i class="fa-solid fa-arrow-left"></i></a>
-			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<h3 id="titlemodal2">Ajout photo</h3>
-			<div class="cardInputPhoto">
-				<i class="fa-regular fa-image"></i>
-				<label for="file" class="addPhotoBtn">+ Ajouter photo</label>
-				<input type="file" id="file" name="image" style="display: none">
-				<img src="#" alt="Aperçut du projet" style="display: none">
-				<p>jpg, png : 4mo max</p>
-			</div>
-			<form class="formContent" href="#modalAddPhoto">
-				<label>Titre</label>
-				<input class="formInput" type="text" name="addTitle">
-				<label>Catégorie</label>
-				<select class="formInput" name="selectCategory">
-				</select>
-				<div class="modal-line"></div>
-				<button class="validateBtn">Valider</button>
-				<p class="error-message"></p>
-			</form>
-		</div>
-	</aside>
-
+	<!-- Modale Galerie photo-->
+	<!-- Modale Ajout photo-->
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>

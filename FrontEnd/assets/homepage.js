@@ -97,16 +97,28 @@ async function displayUserState() {
     const filters = document.querySelector(".filters");
     const loginLink = document.querySelector("#login-link");
     const logoutLink = document.querySelector("#logout-link");
-    const editionMode = document.querySelector("#edition-mode");
     const modifyBtn = document.querySelector("#modify-btn");
+    const header = document.querySelector("header");
+
+    // Supprime l'élément "edition-mode" existant s'il est présent
+    const existingEditionMode = document.querySelector("#edition-mode");
+    if (existingEditionMode) {
+        existingEditionMode.remove();
+    }
 
     if (userData !== null) {
-        const header = document.querySelector("header");
         // Utilisateur connecté
         filters.style.display = "none";
         loginLink.style.display = "none";
         logoutLink.style.display = "block";
-        editionMode.style.display = "flex";
+
+        // Crée et ajoute "edition-mode"
+        const editionMode = document.createElement("div");
+        editionMode.className = "editionMode";
+        editionMode.id = "edition-mode";
+        editionMode.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>Mode édition';
+        document.body.prepend(editionMode);
+
         header.style.margin = "100px 0px 50px";
         modifyBtn.style.display = "inline-flex";
         logoutLink.addEventListener("click", () => {
@@ -119,8 +131,7 @@ async function displayUserState() {
         filters.style.display = "flex";
         loginLink.style.display = "block";
         logoutLink.style.display = "none";
-        editionMode.style.display = "none";
-        header.style.margin = "0px";
+        header.style.margin = "50px";
         modifyBtn.style.display = "none";
     }
 }
