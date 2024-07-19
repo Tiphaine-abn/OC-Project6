@@ -145,28 +145,33 @@ function openModal(targetHref) {
         // Réinitialise la variable 'currentModal'
         currentModal = null;
     }
+
     // Ouverture de la nouvelle modale
-    target.style.display = null;
-    target.removeAttribute('aria-hidden');
-    target.setAttribute('aria-modal', 'true');
-    currentModal = target;
+    if (target) {
+        target.style.display = null;
+        target.removeAttribute('aria-hidden');
+        target.setAttribute('aria-modal', 'true');
+        currentModal = target;
 
-    // Ecouteurs d'événements pour gérer la fermeture de la modale et empêcher la propagation de l'événement
-    currentModal.addEventListener('click', closeModal);
-    currentModal.querySelector('.js-modal-close').addEventListener('click', closeModal);
-    currentModal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
+        // Ecouteurs d'événements pour gérer la fermeture de la modale et empêcher la propagation de l'événement
+        currentModal.addEventListener('click', closeModal);
+        currentModal.querySelector('.js-modal-close').addEventListener('click', closeModal);
+        currentModal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
 
-    // Gestion du bouton de retour pour la navigation entre modales
-    const backBtn = currentModal.querySelector('.js-modal-back');
-    if (backBtn !== null) {
-        backBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(e.currentTarget.getAttribute('href'));
-        });
-    }
-    // Ajoute des cartes de photo si la cible est la galerie photo
-    if (targetHref === '#modal') {
-        addPhotoCards();
+        // Gestion du bouton de retour pour la navigation entre modales
+        const backBtn = currentModal.querySelector('.js-modal-back');
+        if (backBtn !== null) {
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(e.currentTarget.getAttribute('href'));
+            });
+        }
+        // Ajoute des cartes de photo si la cible est la galerie photo
+        if (targetHref === '#modal') {
+            addPhotoCards();
+        }
+    } else {
+        console.error('La modale est introuvable.');
     }
 }
 

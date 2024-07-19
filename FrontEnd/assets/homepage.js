@@ -1,5 +1,41 @@
 let works = null; // Stocke les travaux récupérés pour éviter des appels répétés à l'API
 
+// Fonction pour créer la section portfolio
+function getPortfolioSection() {
+    let portfolioSection = document.querySelector("#portfolio");
+
+    // Crée la section portfolio si elle n'existe pas
+    if (!portfolioSection) {
+        portfolioSection = document.createElement("section");
+        portfolioSection.id = "portfolio";
+        portfolioSection.className = "portfolio";
+
+        // Crée l'en-tête avec le lien "modifier"
+        const header = document.createElement("h2");
+        header.innerHTML = 'Mes projets<a href="#modal" class="modifyBtn js-modal" id="modify-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</a>';
+
+        portfolioSection.appendChild(header);
+
+        // Ajoute la section au main, avant la section contact
+        const main = document.querySelector("main");
+        if (main) {
+            main.insertBefore(portfolioSection, document.querySelector("#contact"));
+        } else {
+            document.body.appendChild(portfolioSection);
+        }
+    }
+
+    // Assure que le bouton "modifier" ouvre la modale
+    const modifyBtn = document.querySelector("#modify-btn");
+    if (modifyBtn) {
+        modifyBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openModal('#modal');
+        });
+    }
+    return portfolioSection;
+}
+
 // Récupération des travaux depuis l'API si tableau vide
 async function getWorks() {
     if (works === null) {
@@ -17,8 +53,13 @@ async function refreshWorks() {
 
 // Affichage des éléments dans la galerie
 async function displayWorks(listWorks) {
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = ""; // Vide la galerie avant d'ajouter les nouveaux éléments et évite les duplications
+    let gallery = document.querySelector(".gallery");
+    if (!gallery) {
+        gallery = document.createElement("div");
+        gallery.className = "gallery";
+        getPortfolioSection().appendChild(gallery);
+    }
+    gallery.innerHTML = ""; // Vide la galerie avant d'ajouter les nouveaux éléments
 
     if (listWorks !== null) {
         listWorks.forEach((work) => {
@@ -44,18 +85,25 @@ async function getCategories() {
 
 // Affichage des boutons filtres par catégories
 async function displayCategoriesBtn() {
-    const categories = await getCategories();
-    const filters = document.querySelector(".filters");
+    let filters = document.querySelector(".filters");
+    if (!filters) {
+        filters = document.createElement("div");
+        filters.className = "filters";
+        getPortfolioSection().appendChild(filters);
+    }
 
-    categories.unshift({ id: 0, name: "Tous" }); // Ajout de l'objet "Tous" au début des catégories et retourne la nouvelle longueur du tableau
+    const categories = await getCategories();
+
+    categories.unshift({ id: 0, name: "Tous" }); // Ajout de l'objet "Tous" au début des catégories
 
     categories.forEach((category) => {
         const btn = document.createElement("button");
         btn.classList.add("filter-btn");
         btn.textContent = category.name;
         btn.id = category.id;
-        if (category.id === 0)
+        if (category.id === 0) {
             btn.classList.add("selected");
+        }
         filters.appendChild(btn);
     });
 
@@ -65,11 +113,11 @@ async function displayCategoriesBtn() {
 
 // Fonction pour filtrer les travaux par catégorie
 async function filterWorksByCategory(categoryId) {
-    listWorks = await getWorks();
+    works = await getWorks();
     if (Number(categoryId) === 0) { // Conversion de categoryId en nombre
-        displayWorks(listWorks); // Affiche tous les travaux
+        displayWorks(works); // Affiche tous les travaux
     } else {
-        const filteredWorks = listWorks.filter(work => work.categoryId == categoryId); // Filtre les travaux
+        const filteredWorks = works.filter(work => work.categoryId == categoryId); // Filtre les travaux
         displayWorks(filteredWorks); // Affiche les travaux filtrés
     }
 }
@@ -91,7 +139,7 @@ function addFilterEventListeners() {
     });
 }
 
-// Fonction pour gérer l'affichage en fonction de l'état de l'utilisateur
+// Fonction pour gérer le cache ou l'affichage des éléments en fonction de l'état de l'utilisateur
 async function displayUserState() {
     const userData = localStorage.getItem("userdata");
     const filters = document.querySelector(".filters");
@@ -99,12 +147,6 @@ async function displayUserState() {
     const logoutLink = document.querySelector("#logout-link");
     const modifyBtn = document.querySelector("#modify-btn");
     const header = document.querySelector("header");
-
-    // Supprime l'élément "edition-mode" existant s'il est présent
-    const existingEditionMode = document.querySelector("#edition-mode");
-    if (existingEditionMode) {
-        existingEditionMode.remove();
-    }
 
     if (userData !== null) {
         // Utilisateur connecté
@@ -131,6 +173,10 @@ async function displayUserState() {
         filters.style.display = "flex";
         loginLink.style.display = "block";
         logoutLink.style.display = "none";
+        const existingEditionMode = document.querySelector("#edition-mode");
+        if (existingEditionMode) {
+            existingEditionMode.remove();
+        }
         header.style.margin = "50px";
         modifyBtn.style.display = "none";
     }
@@ -138,7 +184,8 @@ async function displayUserState() {
 
 // Exécution du script au chargement du DOM
 document.addEventListener("DOMContentLoaded", async function () {
-    await displayWorks(await getWorks());
+    await getPortfolioSection();
     await displayCategoriesBtn();
+    await displayWorks(await getWorks());
     await displayUserState();
 });
