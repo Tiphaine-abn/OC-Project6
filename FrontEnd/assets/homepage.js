@@ -4,16 +4,27 @@ let works = null; // Stocke les travaux récupérés pour éviter des appels ré
 function getPortfolioSection() {
     let portfolioSection = document.querySelector("#portfolio");
 
-    // Crée la section portfolio si elle n'existe pas
+    // Création de la section portfolio si elle n'existe pas
     if (!portfolioSection) {
         portfolioSection = document.createElement("section");
         portfolioSection.id = "portfolio";
         portfolioSection.className = "portfolio";
 
-        // Crée l'en-tête avec le lien "modifier"
+        // Création de l'en-tête avec le lien "modifier"
         const header = document.createElement("h2");
-        header.innerHTML = 'Mes projets<a href="#modal" class="modifyBtn js-modal" id="modify-btn"><i class="fa-regular fa-pen-to-square"></i> modifier</a>';
+        header.textContent = "Mes projets";
 
+        const modifyLink = document.createElement("a");
+        modifyLink.href = "#modal";
+        modifyLink.className = "modifyBtn js-modal";
+        modifyLink.id = "modify-btn";
+
+        const icon = document.createElement("i");
+        icon.className = "fa-regular fa-pen-to-square";
+        modifyLink.appendChild(icon);
+        modifyLink.append(' modifier');
+
+        header.appendChild(modifyLink);
         portfolioSection.appendChild(header);
 
         // Ajoute la section au main, avant la section contact
