@@ -114,7 +114,6 @@ function deleteWork(id) {
         .then(async () => {
             const photoContainer = document.querySelector('.photo-container');
             const childs = photoContainer.childNodes;
-            console.log("childNodes => ", childs);
             for (let i = 0; i < childs.length; ++i) {
                 const currentChild = childs[i];
                 if (Number(currentChild.dataset.workId) === Number(id)) {
@@ -285,7 +284,6 @@ form.addEventListener("submit", async (e) => {
         if (!response.ok) {
             throw new Error(data.error || 'Erreur lors de l\'ajout du projet');
         }
-        console.log("Voici le projet ajouté", data);
         await displayWorks(await refreshWorks());
         openModal('#modal');
     } catch (error) {

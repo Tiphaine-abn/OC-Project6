@@ -171,9 +171,9 @@ async function displayUserState() {
         editionMode.id = "edition-mode";
         editionMode.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>Mode édition';
         document.body.prepend(editionMode);
-
         header.style.margin = "100px 0px 50px";
         modifyBtn.style.display = "inline-flex";
+
         logoutLink.addEventListener("click", () => {
             // Déconnexion de l'utilisateur
             localStorage.clear();
