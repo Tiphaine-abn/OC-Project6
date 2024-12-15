@@ -57,7 +57,7 @@ async function getWorks() {
 
 // Récupération des travaux depuis l'API (aussi utilisé pour charger les nouveaux travaux)
 async function refreshWorks() {
-    const response = await fetch("http://localhost:5678/api/works");
+    const response = await fetch("https://oc-project6-backend.onrender.com/api/works");
     works = await response.json();
     return works;
 }
@@ -89,7 +89,7 @@ async function displayWorks(listWorks) {
 
 // Récupération des catégories depuis l'API
 async function getCategories() {
-    const response = await fetch("http://localhost:5678/api/categories");
+    const response = await fetch("https://oc-project6-backend.onrender.com/api/categories");
     const categories = await response.json();
     return categories;
 }
@@ -159,7 +159,7 @@ async function displayUserState() {
     const modifyBtn = document.querySelector("#modify-btn");
     const header = document.querySelector("header");
 
-    if (userData !== null) {
+    if (userData !== null) { // Vérifie si l'utilisateur est connecté
         // Utilisateur connecté
         filters.style.display = "none";
         loginLink.style.display = "none";

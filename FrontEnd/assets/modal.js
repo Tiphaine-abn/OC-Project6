@@ -105,7 +105,7 @@ function deleteWork(id) {
             "Content-Type": 'application/json'
         }
     };
-    fetch("http://localhost:5678/api/works/" + id, init)
+    fetch("https://oc-project6-backend.onrender.com/api/works/" + id, init)
         .then((response) => {
             if (!response.ok) {
                 throw Error(response.status, response.body);
@@ -272,7 +272,7 @@ form.addEventListener("submit", async (e) => {
     }
 
     try {
-        const response = await fetch("http://localhost:5678/api/works", {
+        const response = await fetch("https://oc-project6-backend.onrender.com/api/works", {
             method: 'POST',
             body: formData,
             headers: {

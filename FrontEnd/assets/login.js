@@ -41,6 +41,7 @@ const contactSection = createElement('section', { id: 'contact' }, [
 const mainElement = document.querySelector('main');
 mainElement.appendChild(contactSection);
 
+
 // Authentification de l'utilisateur
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("#login-form");
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Envoi des données de l'utilisateur à l'API pour l'authentification
-        const response = await fetch("http://localhost:5678/api/users/login", {
+        const response = await fetch("https://oc-project6-backend.onrender.com/api/users/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(users),
